@@ -3,7 +3,7 @@
 
 ### Index
      - About
-     - [How to execute the program](https://github.com/tangiralastar/insightcc2019/blob/master/README.md#how-to-execute-the-program)
+     - [How to execute the program](#how-to-execute-the-program)
        - Windows
        - Linux
      - Design/ Code overview
