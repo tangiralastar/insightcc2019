@@ -52,12 +52,60 @@ TO BE DONE SOON
 ### Design/ Code overview
 The project is design is simple and only consists of 5 classes, which are briefly mentioned below.
 
-  **Program.cs**
+**Program.cs**
   This class acts as the driver. The `Main` method is the entry point of code execution. This calls various classes to help in executing the program. At a higher level, below is what this `Main` method does
+
+- Basic input validation for input arguments for the program. Check whether mandatory inputs are passed to the program
+- Created a InputReader to read the input file
+- Read each line from input file
+  - Create a SaleRecord Object
+  - Insert the SaleRecord Object into the Sales Object
+  - Call `GetSortedSales` method to sort the sales data by total sales of a drug in descending order and when there is a tie, sort by drug name
+- Write each record to output file
+
+**RecordReader.cs**
+  This class is reponsible for reading each line (record) from the given input file. The important points to be noted are 
+- *Ignores any invalid record*
+- Reads only one line at a time
+- `HasNextRecord` method helps to check if there is any other record left out to be read
+ 
+**RecordWriter.cs**
+  This class is reponsible for writing each line (record) into the given output file. The important points to be noted are 
+- *Deletes the output file, if it already exists*
+- Flushes the output after each record is written in the
+
+**SalesRecord.cs**
+  This class is simple class which te represent each input record as a SaleRecord Object.
   
-    - Basic input validation for input arguments for the program. Check whether mandatory inputs are passed to the program
-    - Created a InputReader to read the input file
-    - Read each line from input file
-      - Create a SaleRecord Object
-      - Insert the SaleRecord Object into the Sales Object
-    - Call `GetSortedSales` method to sort the sales data by total sales of a drug in descending order and when there is a tie, sort by drug name
+**RecordWriter.cs**
+  This class is reponsible for writing each line (record) into the given output file. The important points to be noted are 
+- *Deletes the output file, if it already exists*
+- Flushes the output after each record is written in the
+
+**Sales.cs**
+This class represents the total sales information. 
+- Uses HashMap(Dictonary <drugName, DrugSale>)
+  - To group the mutiple records of the same drug as one object, *DrugSale* object
+  - DrugSale object stores the total cost of each drug sold
+  - DrugaSale object, internally uses HashSet to check repition of prescribers to the same drug
+  - HashSet is used to efficiently check if a prescriber for a particular drug has been encountered earlier
+  - DrugSale object also keeps track of total uniquue prescribers to a particular drug (with the help of HashSet)
+- Uses [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) inuilt linary for [SQL like quering on Objects](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/linq-to-objects) to sort the values in the HashMap
+  - Sort in descending order of total drug sales of a particular drug
+  - If there is a tie, in total sales for multiple rug, sort by natural ordering (ascending) of the drug names
+  
+ ---
+### Assumptions
+ 
+##### Total Cost in the output file
+- Even if the cost of each drug is in decimal (non integer) format in the input file, I ignore the digits after the decimal point in the output file.
+- Input file can contain the drug sale cost in decimal format
+- For the puprpose of sorting drugs by total sale cost, I still leverage the decimal format
+
+#### Ignoring invalid records
+- I ignore the records in the input file, which do not strictly adhere to the input format. Some examples of invalid records are mentioned below
+  - `1447335856,"ADAMS, JR.",WILLIE,AZITHROMYCIN,97.41`
+Note the comma, which is used as seperator in the input record is within the double quotes, which causes trouble in basic parsing of the input record.
+
+### Sorting by drug name
+I use inbuilt sorting of strings provided by language framework.
