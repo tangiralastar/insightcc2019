@@ -13,9 +13,9 @@
   - [Ignoring invalid records](#ignoring-invalid-records)
   - [Sorting by drug name](#sorting-by-drug-name)
 - [Optimizations that I implemented](#optimizations-that-i-implemented)
-- [Optimizations that needs to be implemented](#)
-- [Drawbacks of the design](#)
-- [Testing](#)
+- [Optimizations that needs to be implemented](#optimizations-that-needs-to-be-implemented)
+- [Drawbacks of the design](#drawbacks-of-the-design)
+- [Testing](#testing)
 
 ---
 ### About
@@ -112,12 +112,30 @@ I use inbuilt sorting of strings provided by language framework.
 
 ---
 ### Optimizations that I implemented
+- I have used stream reader to read one line at a time from the input file. If the input file is huge, I avoid loading all the content in the memory. This increases the memory utilization
+- Usage of HashMap (Dictonary) and HashSet gives me efficient access in terms O(1) time operation for 
+  - Checking if a prescriber has subscribed to a drug multiple times
+  - To check if a particular drug is seen by the program already in the previous input records in terms of O(1) access time
+  - Grouping of input records as I read from the input file (efficient memory usage, avoiding storage of input data, as I extract and tranform the data as soon as it is read into the memory)
+- Usage of LINQ helps me build the solution on top of tested and proven inbuilt library provided by programming language run-time. This enables faster development (I do not want to re-invent the wheel)
+- I ignore the input records, that are invalid at time of reading the input file itself, hence preventing my errors at the later stage of execution
 
 ---
 ### Optimizations that needs to be implemented
-
+- Limited by system resources - Today the program execution on a large input file is limited by the system resources (RAM And CPU) in a single computer. This solution is not designed to leverage and consolidate the system resources even if a cluster of computers are at disposal for this program
+- Even within resourcece constraints of a single computer, I can optimize the program to work on very large files, by leveraging storage (HDD) to write out the intermediate data to disk and then consolidating these intermediate output for final result
+  - Create a temp file for each unique drug and storing all sales data in corresponding temp file for each drug.
+    Spliting the very large input file into multiple smaller files
+  - Process each temp file one at a time - Use each temp file to individually calcuate the total drug sale information and total unique prescribers for that particula drug
+  - Use threads to process each indivudal temp file. Even execution within a single multi-core processor system, I am not leveraging parallelism provided by multiple cores in the processor at this point in time
+  - Finally consolidate total sales data into one single output file. And delete all the temp files
+  
 ---
 ### Drawbacks of the design
+- Threads and mutiple cores: Does not leverage parallelism provided by multiple cores (and multiple processors, if avaible)
+- Not designed to leverage cluster of computers
 
 ---
 ### Testing
+- I have done testing using mutiple input files by size (small, medium and large - https://drive.google.com/file/d/1fxtTLR_Z5fTO-Y91BnKOQd6J0VC9gPO3/view?usp=sharing)
+- I havent implemented unit testing (due to time constraint and I restricted in usage of 3rd party libarary, e.g. Mocking framworkds), however I belive that its not difficult to write unit tests because I have designed to my classes to adhere to Object Oriented Design principles.
