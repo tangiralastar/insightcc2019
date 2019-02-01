@@ -4,18 +4,18 @@
 ### Index
 - [About](#about)
 - [How to execute the program](#how-to-execute-the-program)
-  - Pre-requisites
-  - Windows
-  - Linux
-- [Design/ Code overview]()
+  - [Pre-requisites](#pre-requisites)
+  - [Windows](#windows)
+  - [Linux](#linux)
+- [Design/ Code overview](#design-code-overview)
 - [Assumptions](#assumptions)
-  - Total Cost in the output file
-  - Ignoring invalid records
-  - Sorting by drug name
-- Optimizations that I implemented
-- Optimizations that needs to be implemented
-- Drawbacks of the design
-- Testing
+  - [Total Cost in the output file](#total-cost-in-the-output-file)
+  - [Ignoring invalid records](#ignoring-invalid-records)
+  - [Sorting by drug name](#sorting-by-drug-name)
+- [Optimizations that I implemented](#optimizations-that-i-implemented)
+- [Optimizations that needs to be implemented](#)
+- [Drawbacks of the design](#)
+- [Testing](#)
 
 ---
 ### About
@@ -97,7 +97,7 @@ This class represents the total sales information.
  ---
 ### Assumptions
  
-##### Total Cost in the output file
+#### Total Cost in the output file
 - Even if the cost of each drug is in decimal (non integer) format in the input file, I ignore the digits after the decimal point in the output file.
 - Input file can contain the drug sale cost in decimal format
 - For the puprpose of sorting drugs by total sale cost, I still leverage the decimal format
@@ -107,5 +107,17 @@ This class represents the total sales information.
   - `1447335856,"ADAMS, JR.",WILLIE,AZITHROMYCIN,97.41`
 Note the comma, which is used as seperator in the input record is within the double quotes, which causes trouble in basic parsing of the input record.
 
-### Sorting by drug name
+#### Sorting by drug name
 I use inbuilt sorting of strings provided by language framework.
+
+---
+### Optimizations that I implemented
+
+---
+### Optimizations that needs to be implemented
+
+---
+### Drawbacks of the design
+
+---
+### Testing
