@@ -4,13 +4,13 @@
 ### Index
 - [About](#about)
 - [How to execute the program](#how-to-execute-the-program)
-  - [Pre-requisites]
-  - [Windows]
-  - [Linux]
-- [Design/ Code overview]
-- [Assumptions]
-  - [Total Cost in the output file]
-  - [Ignoring invalid records]
+  - Pre-requisites
+  - Windows
+  - Linux
+- [Design/ Code overview]()
+- [Assumptions](#assumptions)
+  - Total Cost in the output file
+  - Ignoring invalid records
   - Sorting by drug name
 - Optimizations that I implemented
 - Optimizations that needs to be implemented
@@ -45,5 +45,19 @@ In the above command replace <Input File Path> with the fully qalified file loca
 In the above command replace <Output File Path> with the fully qalified file location path, where the output file is should be written. Make sure appropriate file permission are avaiable within the output directory to create the output file 
 Example: `Replace <Output File Path> with C:\Users\Radha\Desktop\top_cost_drug.txt`
 
+#### Linux
+TO BE DONE SOON
 
 ---
+### Design/ Code overview
+The project is design is simple and only consists of 5 classes, which are briefly mentioned below.
+
+  **Program.cs**
+  This class acts as the driver. The `Main` method is the entry point of code execution. This calls various classes to help in executing the program. At a higher level, below is what this `Main` method does
+  
+    - Basic input validation for input arguments for the program. Check whether mandatory inputs are passed to the program
+    - Created a InputReader to read the input file
+    - Read each line from input file
+      - Create a SaleRecord Object
+      - Insert the SaleRecord Object into the Sales Object
+    - Call `GetSortedSales` method to sort the sales data by total sales of a drug in descending order and when there is a tie, sort by drug name
